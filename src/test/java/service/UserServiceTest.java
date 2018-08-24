@@ -49,18 +49,19 @@ public class UserServiceTest {
 		
 		//is
 		List<User> users = new ArrayList<User>();
-		User admin = new User (12, "admin", "admin");
-		User pablo = new User(13, "pablo", "pablo");
+		User admin = new User (1, "admin", "admin");
+		User pablo = new User(2, "pablo", "pablo");
 		users.add(admin);
 		users.add(pablo);
 		
 		//then
 		UserServiceImpl userServiceImpl = new UserServiceImpl(users);
-		userServiceImpl.deleteUserById(12);
+		userServiceImpl.deleteUserById(1);
 		users.remove(admin);
+		List<User> userListfromTestClass = userServiceImpl.getAllUsers();
 		
 		//expected
-		Assert.assertEquals(users, userServiceImpl);
+		Assert.assertEquals(users, userListfromTestClass);
 		
 	}
 }
