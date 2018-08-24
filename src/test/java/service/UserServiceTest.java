@@ -28,12 +28,39 @@ public class UserServiceTest {
 	
 	@Test
 	public void testAddUser() {
+		
+		//is
 		List<User> users = new ArrayList<User>();
 		User user = new User(12, "ADMIN", "ADMIN");
 		users.add(user);
+		
+		//then
 		UserServiceImpl userServiceImpl = new UserServiceImpl();
 		userServiceImpl.addUser(user);
-		List <User> usersFromTestClass = 
-		Assert.
+		List <User> usersFromTestClass = userServiceImpl.getAllUsers();
+		
+		//expected
+		Assert.assertEquals(users, usersFromTestClass);
+		
+	}
+	
+	@Test
+	public void testDeleteUserById( ) {
+		
+		//is
+		List<User> users = new ArrayList<User>();
+		User admin = new User (12, "admin", "admin");
+		User pablo = new User(13, "pablo", "pablo");
+		users.add(admin);
+		users.add(pablo);
+		
+		//then
+		UserServiceImpl userServiceImpl = new UserServiceImpl(users);
+		userServiceImpl.deleteUserById(12);
+		users.remove(admin);
+		
+		//expected
+		Assert.assertEquals(users, userServiceImpl);
+		
 	}
 }
