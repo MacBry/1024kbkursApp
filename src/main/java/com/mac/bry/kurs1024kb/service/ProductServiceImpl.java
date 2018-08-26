@@ -22,15 +22,22 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	public List<Product> getAllProducts() {
-		return null;
+		return productsList;
 	}
 
 	public int getNumberOfProductsOnList() {
-		return 0;
+		return productsList.size();
 	}
 
-	public Product getProductByProductName() {
-		return null;
+	public Product getProductByProductName(String productName) {
+		Product tempProduct = null;
+		for(Product product : productsList) {
+			if(product.getProductName().equals(productName)) {
+				tempProduct = product;
+				break;
+			}
+		}
+		return tempProduct;
 	}
 
 	public boolean isProductCountIsGreaterThenZero() {

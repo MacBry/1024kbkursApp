@@ -10,7 +10,7 @@ public interface ProductService {
 	
 	int getNumberOfProductsOnList();
 	
-	Product getProductByProductName();
+	Product getProductByProductName(String productName);
 	
 	boolean isProductCountIsGreaterThenZero();
 	
