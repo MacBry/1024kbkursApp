@@ -210,4 +210,191 @@ public class ProductServiceTest {
 		//expected
 		Assert.assertNotEquals(SearchProduct, SearchProductFromTestClass);
 	}
+	
+	@Test
+	public void testPositiveIsProductCountIsGreaterThenZero() {
+		//is
+		List<Product> products = new ArrayList<Product>();
+		Product product = new Product.Builder()
+				.setId(1)
+				.setProductName("buty")
+				.setPrice(new BigDecimal("1522.80"))
+				.setWeight(10)
+				.setColor("czerwony")
+				.setProductCount(1)
+				.build();
+		
+		products.add(product);
+		
+		//then
+		ProductServiceImpl productServiceImpl = new ProductServiceImpl(products);
+		boolean isPrductCountIsGreaterThenZeroInTestClass = productServiceImpl.isProductCountIsGreaterThenZero();
+		
+		//expected
+		Assert.assertEquals(true, isPrductCountIsGreaterThenZeroInTestClass);
+		
+	}
+	
+	@Test
+	public void testNegativeIsProductCountIsGreaterThenZero() {
+		//is
+		List<Product> products = new ArrayList<Product>();
+		
+		//then
+		ProductServiceImpl productServiceImpl = new ProductServiceImpl(products);
+		boolean isPrductCountIsGreaterThenZeroInTestClass = productServiceImpl.isProductCountIsGreaterThenZero();
+		
+		//expected
+		Assert.assertEquals(false, isPrductCountIsGreaterThenZeroInTestClass);
+		
+	}
+	
+	@Test
+	public void testPositiveIsProducWithProductNameExist() {
+		//is
+		List <Product> products = new ArrayList<Product>();
+		Product product = new Product.Builder()
+				.setId(1)
+				.setProductName("buty")
+				.setPrice(new BigDecimal("1522.80"))
+				.setWeight(10)
+				.setColor("czerwony")
+				.setProductCount(1)
+				.build();
+		
+		Product product1 = new Product.Builder()
+				.setId(1)
+				.setProductName("Spodnie")
+				.setPrice(new BigDecimal("500.80"))
+				.setWeight(2)
+				.setColor("Czarne")
+				.setProductCount(10)
+				.build();
+		
+		products.add(product);
+		products.add(product1);
+		
+		boolean isProductWithProductNameExistInProductList = false;
+		for(Product pr : products) {
+			if (pr.getProductName().equals("Spodnie")) {
+				isProductWithProductNameExistInProductList = true;
+			}
+		}
+		
+		//then
+		ProductServiceImpl productServiceImpl = new ProductServiceImpl(products);
+		boolean isProductWithProductNameExistInTestClass = productServiceImpl.isProducWithProductNameExist("Spodnie");
+		
+		//expected
+		Assert.assertEquals(isProductWithProductNameExistInProductList, isProductWithProductNameExistInTestClass);
+	}
+	
+	@Test
+	public void testNegativeIsProducWithProductNameExist() {
+		//is
+		List <Product> products = new ArrayList<Product>();
+		Product product = new Product.Builder()
+				.setId(1)
+				.setProductName("buty")
+				.setPrice(new BigDecimal("1522.80"))
+				.setWeight(10)
+				.setColor("czerwony")
+				.setProductCount(1)
+				.build();
+		
+		Product product1 = new Product.Builder()
+				.setId(1)
+				.setProductName("Spodnie")
+				.setPrice(new BigDecimal("500.80"))
+				.setWeight(2)
+				.setColor("Czarne")
+				.setProductCount(10)
+				.build();
+		
+		products.add(product);
+		products.add(product1);
+		
+		
+		//then
+		ProductServiceImpl productServiceImpl = new ProductServiceImpl(products);
+		boolean isProductWithProductNameExistInTestClass = productServiceImpl.isProducWithProductNameExist("Kitel");
+		
+		//expected
+		Assert.assertNotEquals(true, isProductWithProductNameExistInTestClass);
+	}
+	
+	@Test
+	public void testPositiveIsProducWithProductIdExist() {
+		//is
+		List <Product> products = new ArrayList<Product>();
+		Product product = new Product.Builder()
+				.setId(1)
+				.setProductName("buty")
+				.setPrice(new BigDecimal("1522.80"))
+				.setWeight(10)
+				.setColor("czerwony")
+				.setProductCount(1)
+				.build();
+		
+		Product product1 = new Product.Builder()
+				.setId(1)
+				.setProductName("Spodnie")
+				.setPrice(new BigDecimal("500.80"))
+				.setWeight(2)
+				.setColor("Czarne")
+				.setProductCount(10)
+				.build();
+		
+		products.add(product);
+		products.add(product1);
+		
+		boolean isProductWithProductIdExistInProductList = false;
+		for(Product pr : products) {
+			if (pr.getId() == 1) {
+				isProductWithProductIdExistInProductList = true;
+			}
+		}
+		
+		//then
+		ProductServiceImpl productServiceImpl = new ProductServiceImpl(products);
+		boolean isProductWithProductIdExistInTestClass = productServiceImpl.isProductWithProductIdExist(1);
+		
+		//expected
+		Assert.assertEquals(true, isProductWithProductIdExistInTestClass);
+	}
+	
+	@Test
+	public void testNegativeIsProducWithProductIdExist() {
+		//is
+		List <Product> products = new ArrayList<Product>();
+		Product product = new Product.Builder()
+				.setId(1)
+				.setProductName("buty")
+				.setPrice(new BigDecimal("1522.80"))
+				.setWeight(10)
+				.setColor("czerwony")
+				.setProductCount(1)
+				.build();
+		
+		Product product1 = new Product.Builder()
+				.setId(1)
+				.setProductName("Spodnie")
+				.setPrice(new BigDecimal("500.80"))
+				.setWeight(2)
+				.setColor("Czarne")
+				.setProductCount(10)
+				.build();
+		
+		products.add(product);
+		products.add(product1);
+		
+		
+		//then
+		ProductServiceImpl productServiceImpl = new ProductServiceImpl(products);
+		boolean isProductWithProductIdExistInTestClass = productServiceImpl.isProductWithProductIdExist(3);
+		
+		//expected
+		Assert.assertNotEquals(true, isProductWithProductIdExistInTestClass);
+	}
+	
 }

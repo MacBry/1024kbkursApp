@@ -14,7 +14,7 @@ public interface ProductService {
 	
 	boolean isProductCountIsGreaterThenZero();
 	
-	boolean isProducWithProductNameExist();
+	boolean isProducWithProductNameExist(String productName);
 	
-	boolean isProductWithProductIdExist();
+	boolean isProductWithProductIdExist(int productId);
 }

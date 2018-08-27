@@ -41,15 +41,30 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	public boolean isProductCountIsGreaterThenZero() {
-		return false;
+		if(productsList.size() == 0 ) {
+			return false;
+		}
+		else return true;
 	}
 
-	public boolean isProducWithProductNameExist() {
-		return false;
+	public boolean isProducWithProductNameExist(String productName) {
+		boolean tempAnswer = false;
+		for (Product pro : productsList) {
+			if (pro.getProductName().equals(productName)) {
+				return tempAnswer = true;
+			}
+		}
+		return tempAnswer;	
 	}
 
-	public boolean isProductWithProductIdExist() {
-		return false;
+	public boolean isProductWithProductIdExist(int productId) {
+		boolean tempAnswer = false;
+		for (Product pro : productsList) {
+			if (pro.getId() == productId) {
+				return tempAnswer = true;
+			}
+		}
+		return tempAnswer;
 	}
 
 }
