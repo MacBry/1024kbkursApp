@@ -111,11 +111,11 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", productName=" + productName + ", price=" + price + ", weight=" + weight
-				+ ", color=" + color + ", productCount=" + productCount + "]";
+		return  id + "#" + productName + "#" + price + "#" + weight
+				+ "#" + color + "#" + productCount ;
 	}
 	
-	
+	 
 	
 
 }
