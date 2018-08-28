@@ -12,11 +12,11 @@ public interface ProductDao {
 	
 	public void saveProducts(List<Product> products) throws FileNotFoundException, IOException;
 	
-	public void removeProductById(Long productId);
+	public void removeProductById(Long productId) throws FileNotFoundException, IOException;
 	
 	public void removeProductByName(String productName);
 	
-	public List<Product>getAllProducts();
+	public List<Product>getAllProducts() throws FileNotFoundException;
 	
 	public Product getProductById(Long productId);
 	

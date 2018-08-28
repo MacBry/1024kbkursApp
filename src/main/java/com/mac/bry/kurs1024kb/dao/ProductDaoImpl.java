@@ -1,27 +1,33 @@
 package com.mac.bry.kurs1024kb.dao;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mac.bry.kurs1024kb.api.ProductDao;
 import com.mac.bry.kurs1024kb.entity.Product;
+import com.mac.bry.kurs1024kb.utils.FileUtils;
 
 public class ProductDaoImpl implements ProductDao {
 
-	private String FileName;
-	private FileOutputStream fileOutputStream;
+	private String fileName;
+	private String productType;
 
-	public ProductDaoImpl(String fileName) {
+	public ProductDaoImpl(String fileName, String productType) throws IOException {
 		super();
-		FileName = fileName;
+		this.fileName = fileName;
+		this.productType = productType;
+		FileUtils.createNewFile(fileName);
 	}
 
 	public void saveProduct(Product product) throws IOException  {
 		
-		FileOutputStream fileOutputStream = new FileOutputStream(FileName, true);
+		FileOutputStream fileOutputStream = new FileOutputStream(fileName, true);
 		PrintWriter printWriter = new PrintWriter(fileOutputStream);
 		printWriter.write(product.toString());
 		printWriter.close();
@@ -41,8 +47,8 @@ public class ProductDaoImpl implements ProductDao {
 
 	}
 
-	public void removeProductById(Long productId) {
-		// TODO Auto-generated method stub
+	public void removeProductById(Long productId) throws IOException {
+
 
 	}
 
@@ -51,9 +57,10 @@ public class ProductDaoImpl implements ProductDao {
 
 	}
 
-	public List<Product> getAllProducts() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Product> getAllProducts() throws FileNotFoundException {
+		List <Product> listOfProducts = new ArrayList<Product>();
+		BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
+	
 	}
 
 	public Product getProductById(Long productId) {
