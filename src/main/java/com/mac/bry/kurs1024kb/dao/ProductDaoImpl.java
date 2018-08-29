@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.mac.bry.kurs1024kb.api.ProductDao;
 import com.mac.bry.kurs1024kb.entity.Product;
+import com.mac.bry.kurs1024kb.entity.parser.ProductParser;
 import com.mac.bry.kurs1024kb.utils.FileUtils;
 
 public class ProductDaoImpl implements ProductDao {
@@ -26,18 +27,15 @@ public class ProductDaoImpl implements ProductDao {
 	}
 
 	public void saveProduct(Product product) throws IOException  {
-		
-		FileOutputStream fileOutputStream = new FileOutputStream(fileName, true);
-		PrintWriter printWriter = new PrintWriter(fileOutputStream);
-		printWriter.write(product.toString());
-		printWriter.close();
-		fileOutputStream.close();
-		
+		List<Product> productList = new ArrayList<Product>();
+		productList = getAllProducts();
+		productList.add(product);
+		saveProducts(productList);
 	}
 
 	public void saveProducts(List<Product> products) throws IOException {
 		
-		FileOutputStream fileOutputStream = new FileOutputStream(FileName, true);
+		FileOutputStream fileOutputStream = new FileOutputStream(fileName, true);
 		PrintWriter printWriter = new PrintWriter(fileOutputStream);
 		for (Product pr : products) {
 			printWriter.write(pr.toString() + "\n");
@@ -47,29 +45,67 @@ public class ProductDaoImpl implements ProductDao {
 
 	}
 
-	public void removeProductById(Long productId) throws IOException {
+	public void removeProductById(int productId) throws IOException {
+		List <Product> listOfProducts = new ArrayList<Product>();
+		
+		for( int i = 0 ; i < listOfProducts.size() ; i ++) {
+			boolean isFoundProduct = listOfProducts.get(i).getId() == productId;
+			if (isFoundProduct) {
+				listOfProducts.remove(i);
+			}
+		}
+		saveProducts(listOfProducts);
+
+	}
+
+	public void removeProductByName(String productName) throws IOException {
+List <Product> listOfProducts = new ArrayList<Product>();
+		
+		for( int i = 0 ; i < listOfProducts.size() ; i ++) {
+			boolean isFoundProduct = listOfProducts.get(i).getProductName() == productName;
+			if (isFoundProduct) {
+				listOfProducts.remove(i);
+			}
+		}
+		saveProducts(listOfProducts);
 
 
 	}
 
-	public void removeProductByName(String productName) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public List<Product> getAllProducts() throws FileNotFoundException {
+	public List<Product> getAllProducts() throws IOException {
 		List <Product> listOfProducts = new ArrayList<Product>();
 		BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
-	
+		String readLine = bufferedReader.readLine();
+		
+		while (readLine != null) {
+			Product product = ProductParser.stringToProduct(readLine, productType);
+			if (product != null) {
+				listOfProducts.add(product);
+			}
+		}
+		bufferedReader.close();
+		return listOfProducts;
 	}
 
-	public Product getProductById(Long productId) {
-		// TODO Auto-generated method stub
+	public Product getProductById(int productId) throws IOException {
+		List<Product> listOfProducts = getAllProducts();
+		for (Product pr : listOfProducts) {
+			boolean isFoundProduct = (pr.getId() == productId);
+			if(isFoundProduct) {
+				return pr;
+			}
+		}
 		return null;
 	}
 
-	public Product getProductByProductName(String productName) {
-		// TODO Auto-generated method stub
+	public Product getProductByProductName(String productName) throws IOException {
+		List<Product> listOfProducts = getAllProducts();
+		for(Product pr : listOfProducts) {
+			boolean isFoundProduct = (pr.getProductName().equals(productName));
+			if(isFoundProduct) {
+				return pr;
+			}
+		}
 		return null;
 	}
 
