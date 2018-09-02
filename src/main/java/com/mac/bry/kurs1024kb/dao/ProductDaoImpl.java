@@ -1,7 +1,6 @@
 package com.mac.bry.kurs1024kb.dao;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -38,10 +37,10 @@ public class ProductDaoImpl implements ProductDao {
 		FileOutputStream fileOutputStream = new FileOutputStream(fileName, true);
 		PrintWriter printWriter = new PrintWriter(fileOutputStream);
 		for (Product pr : products) {
-			printWriter.write(pr.toString() + "\n");
+			printWriter.println(pr.toString());
+			
 		}
 		printWriter.close();
-		fileOutputStream.close();
 
 	}
 
@@ -82,6 +81,9 @@ List <Product> listOfProducts = new ArrayList<Product>();
 			if (product != null) {
 				listOfProducts.add(product);
 			}
+			readLine = bufferedReader.readLine();
+			
+			
 		}
 		bufferedReader.close();
 		return listOfProducts;
