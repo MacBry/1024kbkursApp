@@ -24,14 +24,15 @@ public class ProductDaoImpl implements ProductDao {
 		this.productType = productType;
 		FileUtils.createNewFile(fileName);
 	}
-
+	@Override
 	public void saveProduct(Product product) throws IOException  {
 		List<Product> productList = new ArrayList<Product>();
 		productList = getAllProducts();
 		productList.add(product);
 		saveProducts(productList);
 	}
-
+	
+	@Override
 	public void saveProducts(List<Product> products) throws IOException {
 		
 		FileOutputStream fileOutputStream = new FileOutputStream(fileName, true);
@@ -44,6 +45,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	}
 
+	@Override
 	public void removeProductById(int productId) throws IOException {
 		List <Product> listOfProducts = new ArrayList<Product>();
 		
@@ -56,11 +58,12 @@ public class ProductDaoImpl implements ProductDao {
 		saveProducts(listOfProducts);
 
 	}
-
+	
+	@Override
 	public void removeProductByName(String productName) throws IOException {
-List <Product> listOfProducts = new ArrayList<Product>();
+		List <Product> listOfProducts = getAllProducts();
 		
-		for( int i = 0 ; i < listOfProducts.size() ; i ++) {
+		for( int i = 0 ; i < listOfProducts.size() ; i++) {
 			boolean isFoundProduct = listOfProducts.get(i).getProductName() == productName;
 			if (isFoundProduct) {
 				listOfProducts.remove(i);
@@ -71,6 +74,7 @@ List <Product> listOfProducts = new ArrayList<Product>();
 
 	}
 
+	@Override
 	public List<Product> getAllProducts() throws IOException {
 		List <Product> listOfProducts = new ArrayList<Product>();
 		BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
@@ -83,12 +87,12 @@ List <Product> listOfProducts = new ArrayList<Product>();
 			}
 			readLine = bufferedReader.readLine();
 			
-			
 		}
 		bufferedReader.close();
 		return listOfProducts;
 	}
 
+	@Override
 	public Product getProductById(int productId) throws IOException {
 		List<Product> listOfProducts = getAllProducts();
 		for (Product pr : listOfProducts) {
@@ -100,6 +104,7 @@ List <Product> listOfProducts = new ArrayList<Product>();
 		return null;
 	}
 
+	@Override
 	public Product getProductByProductName(String productName) throws IOException {
 		List<Product> listOfProducts = getAllProducts();
 		for(Product pr : listOfProducts) {
