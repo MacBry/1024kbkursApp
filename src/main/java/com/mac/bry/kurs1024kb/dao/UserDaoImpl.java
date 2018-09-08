@@ -16,8 +16,25 @@ import com.mac.bry.kurs1024kb.utils.FileUtils;
 
 public class UserDaoImpl implements UserDao {
 
-	private String fileName;
+	private String fileName = "users.data";
+	private static UserDaoImpl instance = null;
 	
+	private UserDaoImpl () {
+		try {
+			FileUtils.createNewFile(fileName);
+		} catch (IOException e) {
+			System.err.println("Error ");
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static UserDaoImpl getInstance () {
+		if (instance == null) {
+			instance = new UserDaoImpl();
+		}
+		return instance;
+	}
 	
 	public UserDaoImpl(String fileName) throws IOException {
 		super();
@@ -111,6 +128,18 @@ public class UserDaoImpl implements UserDao {
 		}
 		saveUsers(userList);
 
+	}
+
+	@Override
+	public boolean isUserByLoginExist(String login) throws IOException {
+		List<User> userList = getAllUsers();
+		for(User us : userList) {
+			boolean isLoginExist = us.getLogin().equals(login);
+			if(isLoginExist) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

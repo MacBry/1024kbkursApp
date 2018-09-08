@@ -22,4 +22,6 @@ public interface UserDao {
 	
 	public void removeUserById(int id) throws IOException;
 	
+	public boolean isUserByLoginExist (String login) throws IOException;
+	
 }
