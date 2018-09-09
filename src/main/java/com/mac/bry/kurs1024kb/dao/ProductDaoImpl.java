@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.InstanceAlreadyExistsException;
+
 import com.mac.bry.kurs1024kb.api.ProductDao;
 import com.mac.bry.kurs1024kb.entity.Product;
 import com.mac.bry.kurs1024kb.entity.parser.ProductParser;
@@ -15,15 +17,26 @@ import com.mac.bry.kurs1024kb.utils.FileUtils;
 
 public class ProductDaoImpl implements ProductDao {
 
+	private static ProductDaoImpl instance = null;
+	
 	private String fileName;
 	private String productType;
-
-	public ProductDaoImpl(String fileName, String productType) throws IOException {
-		super();
+	
+	public static ProductDaoImpl getInstance(String fileName, String productType) throws IOException {
+		if(instance == null ) {
+			instance = new  ProductDaoImpl(fileName, productType);
+		}
+		return instance;
+	}
+	
+	private ProductDaoImpl(String fileName, String productType) throws IOException {
 		this.fileName = fileName;
 		this.productType = productType;
 		FileUtils.createNewFile(fileName);
 	}
+
+
+	
 	@Override
 	public void saveProduct(Product product) throws IOException  {
 		List<Product> productList = new ArrayList<Product>();
@@ -114,6 +127,19 @@ public class ProductDaoImpl implements ProductDao {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public int getNumberOfProducts()  {
+		List<Product> listOfProducts = null;
+		try {
+			listOfProducts = getAllProducts();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return listOfProducts.size();
 	}
 
 }

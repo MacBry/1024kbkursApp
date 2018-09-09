@@ -22,4 +22,6 @@ public interface ProductDao {
 	
 	public Product getProductByProductName(String productName) throws IOException;
 	
+	public int getNumberOfProducts () ;
+	
 }

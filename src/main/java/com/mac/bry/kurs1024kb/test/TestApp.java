@@ -72,7 +72,7 @@ public class TestApp {
 		//System.out.println();
 		
 		//file test
-		ProductDaoImpl daoImpl = new ProductDaoImpl("Maciej84.txt", "PRODUCT");
+		ProductDaoImpl daoImpl = ProductDaoImpl.getInstance("test", "PRODUCT");
 		List <Product> productsList =  new ArrayList<Product>();
 		
 		productsList.add(product);
