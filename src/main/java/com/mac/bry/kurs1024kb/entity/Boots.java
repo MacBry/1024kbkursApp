@@ -49,7 +49,7 @@ public class Boots extends Product {
 
 	@Override
 	public String toString() {
-		return "Boots [size=" + size + ", isNaturalSkin=" + isNaturalSkin + ", toString()=" + super.toString() + "]";
+		return  size + "#" + isNaturalSkin + "#" + super.toString();
 	}
 
 	

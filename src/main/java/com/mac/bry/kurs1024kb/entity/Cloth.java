@@ -49,7 +49,7 @@ public static class ClothBuilder extends Product.Builder {
 
 	@Override
 	public String toString() {
-		return "Cloth [size=" + size + ", material=" + material + ", toString()=" + super.toString() + "]";
+		return   size + "#" + material + "#" + super.toString();
 	}
 	
 	
